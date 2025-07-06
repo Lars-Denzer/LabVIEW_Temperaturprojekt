@@ -1,6 +1,3 @@
-### 🔹 Beschreibung für `check_threshold.vi`
-
-```markdown
 ### 🚨 check_threshold.vi
 
 Dieses Modul überprüft, ob ein Temperaturwert (oder dessen Durchschnitt) definierte Schwellen überschreitet.
