@@ -1,58 +1,22 @@
+### 📈 simulate_temperature.vi
 
----
+Dieses Modul erzeugt simulierte Temperaturdaten zur Verwendung in Messsystemen, Visualisierungen oder Testläufen.
 
-## 📄 `beschreibung_threshold.md`
+Die Temperatur wird als Kombination aus:
+- einem festen **Basiswert** (z. B. 22 °C),
+- einer sinusförmigen **Tagesmodulation** (z. B. ±5 °C),
+- sowie einem **Zufallsrauschen** simuliert.
 
-```markdown
-# check_threshold.vi
+Formel:
+```text
+Temperatur = Basiswert + Schwankung * sin(t) + Rauschfaktor * Zufall
 
-## 🎯 Zweck
+Das VI gibt einen Rohwert aus und stellt diesen in einem Waveform Chart grafisch dar. Es kann als eigenständiger Simulationsbaustein oder als SubVI in komplexere Systeme integriert werden.
 
-Diese VI prüft, ob simulierte Temperaturwerte gewisse Grenzwerte überschreiten – sowohl **für einzelne Tageswerte** als auch **für Durchschnittswerte** über mehrere Tage hinweg.
+✅ Anwendungszweck:
 
-Sie liefert zwei boolesche Signale als Warnung bei Überschreitung.
+    Testumgebungen ohne echte Sensorhardware
 
----
+    Schulung & Demonstration
 
-## 🔍 Funktionsweise
-
-### Vergleichswerte:
-- Tageswert > Schwelle Tag → **Tageswarnung aktiv**
-- Mittelwert(Temperatur über N Tage) > Schwelle Durchschnitt → **Durchschnittswarnung aktiv**
-
-Die Durchschnittsberechnung erfolgt per `MEAN.vi`.
-
----
-
-## 🧰 Eingänge (Controls)
-
-| Name                        | Typ       | Beschreibung                              |
-|-----------------------------|-----------|--------------------------------------------|
-| `Schwelle Tagestemperatur` | Numeric   | Grenzwert für einzelne Tageswerte (°C)     |
-| `Schwelle Durchschnitt`    | Numeric   | Grenzwert für geglättete Durchschnittswerte |
-| `Temperatur`               | Array     | Liste mit letzten Tageswerten (Shift Register) |
-| `Anzahl Tage`              | Integer   | Wie viele Werte in Durchschnitt einfließen |
-
----
-
-## 📤 Ausgänge (Indicators)
-
-| Name                         | Typ     | Beschreibung                             |
-|------------------------------|---------|-------------------------------------------|
-| `Warnung Tagestemperatur`    | Boolean | `TRUE`, wenn Schwelle für Tageswert überschritten |
-| `Warnung Durchschnittstemperatur` | Boolean | `TRUE`, wenn Mittelwert die Schwelle übersteigt |
-| `Tagestemperatur (°C)`       | Numeric | Letzter Wert aus Temperatur-Array         |
-| `Durchschnittstemperatur (°C)` | Numeric | Ergebnis der Mittelwertbildung            |
-
----
-
-## 🔌 Integration
-
-- Kann modular in andere Haupt-VIs eingebunden werden
-- Liefert Warnsignale zur Steuerung von Alarmen, LEDs, Logging etc.
-
----
-
-## 🖼 Beispiel
-
-![check_threshold Blockdiagramm](../screenshots/check_threshold_blockdiagram.png)
+    Basis für Schwellenwertüberwachung und Mittelwertbildung
